@@ -533,7 +533,7 @@ class CucumberChef < Thor
     desc old_task, "*DEPRECATED* - #{message}"
     define_method(old_task) do
       puts
-      puts(set_color("The '#{old_task}' task is *DEPRECIATED* - #{message}", :red, true))
+      puts(set_color("The '#{old_task}' task is *DEPRECATED* - #{message}", :red, true))
       puts
     end
   end
