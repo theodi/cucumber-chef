@@ -26,9 +26,6 @@ require 'cucumber/chef/utility/lab_helper'
 require 'cucumber/chef/utility/log_helper'
 require 'cucumber/chef/utility/lxc_helper'
 
-require 'net/http'
-require 'whichr'
-
 module Cucumber
   module Chef
 
@@ -99,7 +96,7 @@ module Cucumber
 ################################################################################
 
       def external_ip
-        ::Net::HTTP.get('checkip.dyn.com','/').match(/Current IP Address: ([\d\.]+)</)[1]
+        %x(wget -q -O - checkip.dyndns.org|sed -e 's/.*Current IP Address: //' -e 's/<.*$//').chomp.strip
       end
 
 ################################################################################
@@ -125,11 +122,7 @@ module Cucumber
       end
 
       def build_command(name, *args)
-        if OS.windows?
-          executable = ::RubyWhich.new.which(name)[0]
-        else
-          executable = (Cucumber::Chef.locate(:file, "bin", name) rescue "/usr/bin/env #{name}")
-        end
+        executable = (Cucumber::Chef.locate(:file, "bin", name) rescue "/usr/bin/env #{name}")
         [executable, args].flatten.compact.join(" ")
       end
 

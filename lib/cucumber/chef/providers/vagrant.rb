@@ -140,7 +140,7 @@ module Cucumber
         end
 
         def state
-          output = self.vagrant_cli("status").output.split("\n").grep(/#{id}/)
+          output = self.vagrant_cli("status | grep '#{id}'").output
           result = :unknown
           (VALID_STATES+INVALID_STATES).each do |state|
             if output =~ /#{state}/

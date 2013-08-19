@@ -520,20 +520,20 @@ class CucumberChef < Thor
   end
 
 ################################################################################
-# DEPRECATED TASKS
+# DEPRECIATED TASKS
 ################################################################################
 
-  deprecated_tasks = {
+  depreciated_tasks = {
     "teardown" => "You should execute the 'destroy' task instead.",
     "info" => "You should execute the 'status' task instead.",
     "test" => "You should execute 'cucumber' or 'rspec' directly."
   }
 
-  deprecated_tasks.each do |old_task, message|
-    desc old_task, "*DEPRECATED* - #{message}"
+  depreciated_tasks.each do |old_task, message|
+    desc old_task, "*DEPRECIATED* - #{message}"
     define_method(old_task) do
       puts
-      puts(set_color("The '#{old_task}' task is *DEPRECATED* - #{message}", :red, true))
+      puts(set_color("The '#{old_task}' task is *DEPRECIATED* - #{message}", :red, true))
       puts
     end
   end
